@@ -1,0 +1,62 @@
+.cue {
+  position: relative;
+  isolation: isolate;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  margin-top: 24px;
+  padding: 6px 12px;
+  color: var(--lofi-text);
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.cue::before {
+  content: "";
+  position: absolute;
+  inset: -12px -24px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse, rgba(245, 240, 232, 0.9) 0%, rgba(245, 240, 232, 0.65) 40%, rgba(245, 240, 232, 0) 72%);
+  filter: blur(5px);
+}
+
+.cue:focus-visible {
+  outline: 2px solid var(--lofi-text-muted);
+  outline-offset: 5px;
+  border-radius: 4px;
+}
+
+.arrowHover {
+  display: block;
+  transition: transform 220ms ease-out;
+}
+
+.arrow {
+  display: block;
+  animation: invitation 900ms ease-in-out 450ms 1;
+}
+
+@media (hover: hover) {
+  .cue:hover .arrowHover {
+    transform: translateY(3px);
+  }
+}
+
+@keyframes invitation {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow { animation: none; }
+  .arrowHover { transition: none; }
+  .cue:hover .arrowHover { transform: none; }
+}

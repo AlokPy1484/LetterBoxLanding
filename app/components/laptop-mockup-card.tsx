@@ -65,6 +65,7 @@ export type LaptopFrameVariant = keyof typeof laptopFrameVariants;
 type LaptopMockupCardProps = Readonly<
     ComponentPropsWithoutRef<"div"> & {
         variant?: LaptopFrameVariant;
+        size?: "responsive" | "desktop";
         children?: ReactNode;
     }
 >;
@@ -72,7 +73,7 @@ type LaptopMockupCardProps = Readonly<
 export const LaptopMockupCard = forwardRef<
     HTMLDivElement,
     LaptopMockupCardProps
->(({ className, children, variant = "gray", ...props }, ref) => {
+>(({ className, children, variant = "gray", size = "responsive", ...props }, ref) => {
     const frame = laptopFrameVariants[variant];
 
     return (
@@ -85,12 +86,13 @@ export const LaptopMockupCard = forwardRef<
         >
             <div
                 className={cn(
-                    "w-70 overflow-hidden rounded-t-xl border-2 border-b-0 shadow-xl md:w-[384px]",
+                    "overflow-hidden rounded-t-xl border-2 border-b-0 shadow-xl",
+                    size === "desktop" ? "w-[384px]" : "w-70 md:w-[384px]",
                     frame.border,
                 )}
             >
                 <div className="bg-neutral-800 p-1.5 pb-0">
-                    <div className="relative h-46 overflow-hidden rounded-t-sm bg-neutral-900 md:h-63">
+                    <div className={cn("relative overflow-hidden rounded-t-sm bg-neutral-900", size === "desktop" ? "h-63" : "h-46 md:h-63")}>
                         <div className="relative size-full overflow-hidden rounded-t-sm">
                             {children}
                         </div>
@@ -100,13 +102,15 @@ export const LaptopMockupCard = forwardRef<
 
             <div
                 className={cn(
-                    "relative h-2.5 w-78.75 rounded-b-xl md:h-3 md:w-108",
+                    "relative rounded-b-xl",
+                    size === "desktop" ? "h-3 w-108" : "h-2.5 w-78.75 md:h-3 md:w-108",
                     frame.base,
                 )}
             >
                 <div
                     className={cn(
-                        "absolute top-0 left-1/2 h-1 w-14 -translate-x-1/2 rounded-b-md md:w-16",
+                        "absolute top-0 left-1/2 h-1 -translate-x-1/2 rounded-b-md",
+                        size === "desktop" ? "w-16" : "w-14 md:w-16",
                         frame.notch,
                     )}
                     aria-hidden="true"

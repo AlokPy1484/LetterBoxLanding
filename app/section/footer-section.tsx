@@ -1,4 +1,5 @@
 import Image from "next/image";
+import RevealOnView from "../components/reveal-on-view";
 
 
 
@@ -13,17 +14,21 @@ export default function FooterSection() {
             <div className="flex flex-col justify-start items-center gap-6 z-100 mt-[10vh] md:mt-[14vh] px-6">
 
                 {/* Logo */}
-                <div className="flex justify-center items-center gap-3 md:gap-4">
-                    <span>
-                        <Image src="/PlaceholderLogo.png" alt="Placeholder" width={50} height={50} className="rounded-full" />
-                    </span>
-                    <h1 className="text-2xl md:text-5xl font-semibold text-[var(--lofi-text)] tracking-[-6%] font-[family-name:var(--font-dm-serif)]">LetterBox</h1>
-                </div>
+                <RevealOnView direction="up">
+                    <div className="flex justify-center items-center gap-3 md:gap-4">
+                        <span>
+                            <Image src="/PlaceholderLogo.png" alt="Placeholder" width={50} height={50} className="rounded-full" />
+                        </span>
+                        <h1 className="text-2xl md:text-5xl font-semibold text-[var(--lofi-text)] tracking-[-6%] font-[family-name:var(--font-dm-serif)]">LetterBox</h1>
+                    </div>
+                </RevealOnView>
 
                 {/* Tagline */}
-                <p className="text-sm md:text-sm text-[var(--lofi-text-muted)] text-center max-w-xs">
-                    Craft heartfelt digital letters for the people who matter most.
-                </p>
+                <RevealOnView direction="up" delay={120}>
+                    <p className="text-sm md:text-sm text-[var(--lofi-text-muted)] text-center max-w-xs">
+                        Craft heartfelt digital letters for the people who matter most.
+                    </p>
+                </RevealOnView>
 
                 {/* Nav links */}
                 {/* <nav className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-sm">
@@ -34,9 +39,11 @@ export default function FooterSection() {
                 </nav> */}
 
                 {/* CTA */}
-                <button className="px-4 py-2 bg-[var(--lofi-accent-soft)] text-[var(--lofi-text)] text-sm rounded-[20px] shadow-[0_2px_8px_var(--lofi-shadow)] hover:shadow-[0_4px_16px_var(--lofi-shadow)] transition-shadow duration-300">
-                    Start writing a letter
-                </button>
+                <RevealOnView direction="up" delay={240}>
+                    <button className="px-4 py-2 bg-[var(--lofi-accent-soft)] text-[var(--lofi-text)] text-sm rounded-[20px] shadow-[0_2px_8px_var(--lofi-shadow)] hover:shadow-[0_4px_16px_var(--lofi-shadow)] transition-shadow duration-300">
+                        Start writing a letter
+                    </button>
+                </RevealOnView>
 
 
                 {/* Copyright & socials */}
@@ -69,7 +76,7 @@ export default function FooterSection() {
             </div>
 
             {/* Ground */}
-            <div className="absolute inset-x-0 bottom-0 w-full">
+            <RevealOnView direction="up" className="absolute inset-x-0 bottom-0 w-full">
                 <Image
                     src="/FooterGround.png"
                     alt=""
@@ -77,10 +84,10 @@ export default function FooterSection() {
                     height={250}
                     className="block h-auto w-full"
                 />
-            </div>
+            </RevealOnView>
 
             {/* Foreground */}
-            <div className="absolute inset-x-0 bottom-0 w-full">
+            <RevealOnView direction="up" delay={140} className="absolute inset-x-0 bottom-0 w-full">
                 <Image
                     src="/FooterImage.png"
                     alt=""
@@ -88,7 +95,7 @@ export default function FooterSection() {
                     height={250}
                     className="block h-auto w-full"
                 />
-            </div>
+            </RevealOnView>
 
         </section>
     )

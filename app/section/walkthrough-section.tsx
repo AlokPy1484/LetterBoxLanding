@@ -1,16 +1,19 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { IpadMockupCard } from "../components/tablet-mockup-card";
 import { LaptopMockupCard } from "../components/laptop-mockup-card";
 import { PhoneMockupCard } from "../components/phone-mockup-card";
+import RevealOnView from "../components/reveal-on-view";
+import ScaledScene from "../components/scaled-scene";
 
 
 
 export default function WalkthroughSection() {
     return (
-        <div className="flex flex-col justify-center items-center w-full h-full py-20 bg-[var(--lofi-bg-deep)]">
+        <div id="about" className="scroll-mt-6 flex flex-col justify-center items-center w-full h-full py-12 md:py-20 bg-[var(--lofi-bg-deep)]">
 
 
-            <WalkthroughCard index={"01"} title={"Chat"} description={"Chat with AI assistant to get quick replies to your questions, or let it handle small tasks for you."} visual={<ChatCard01 />} />
+            <WalkthroughCard index={"01"} title={"Chat"} description={"Chat with AI assistant to get quick replies to your questions, or let it handle small tasks for you."} visual={<ChatCard01 />} visualWidth={300} />
             <WalkthroughCard varient={"fliped"} index={"02"} title={"Preview"} description={"Chat with AI assistant to get quick replies to your questions, or let it handle small tasks for you."} visual={<ChatCard02 />} />
             <WalkthroughCard index={"03"} title={"Share"} description={"Chat with AI assistant to get quick replies to your questions, or let it handle small tasks for you."} visual={<ChatCard03 />} />
 
@@ -26,37 +29,52 @@ type WalkthroughCardProps = {
     title: string;
     description: string;
     visual: React.ReactNode;
+    visualWidth?: number;
     varient?: "normal" | "fliped";
 }
 
 export function WalkthroughCard(props: WalkthroughCardProps) {
 
-    // On mobile: always image-on-top, text-below (flex-col)
-    // On desktop: normal = text-left image-right (flex-row), flipped = image-left text-right (flex-row-reverse keeps DOM order consistent)
-    const directionClass = props.varient === "fliped"
-        ? "flex-col md:flex-row-reverse "
-        : "flex-col md:flex-row";
+    const isFlipped = props.varient === "fliped";
+    const desktopColumns = isFlipped
+        ? "lg:grid-cols-[var(--visual-column-width)_350px]"
+        : "lg:grid-cols-[350px_var(--visual-column-width)]";
+    const columnStyle = {
+        "--visual-column-width": props.visualWidth ? `${props.visualWidth}px` : "minmax(0,1fr)",
+    } as CSSProperties;
 
     return (
-        <div className={`flex ${directionClass} justify-center md:justify-between items-center max-w-4xl w-full px-6 md:px-0 py-16 md:py-0 md:h-screen gap-8 md:gap-0`}>
+        <div style={columnStyle} className={`grid grid-cols-1 items-center lg:justify-center max-w-4xl w-full px-6 lg:px-0 py-10 lg:py-0 lg:h-screen gap-y-6 lg:gap-x-12 ${desktopColumns}`}>
 
             {/* Image — always first in DOM, shows on top on mobile */}
-            {props.visual}
+            <RevealOnView
+                direction={isFlipped ? "left-scale" : "right-scale"}
+                className={`order-1 flex w-full min-w-0 justify-center lg:order-none lg:row-start-1 ${isFlipped ? "lg:col-start-1 lg:justify-end" : "lg:col-start-2 lg:justify-start"}`}
+            >
+                {props.visual}
+            </RevealOnView>
 
             {/* Text content */}
-            <div className={`flex flex-col justify-end items-center md:items-start w-full gap-6 md:gap-8 max-w-full md:max-w-[350px] order-2 md:order-none ${props.varient === "fliped" ? "" : "md:order-first"}`}>
-
-                <div className="flex justify-start items-end gap-4">
-                    <div className="flex justify-center items-center rounded-full size-[36px] bg-[var(--lofi-accent)] text-[var(--lofi-text)] shadow-[0_2px_6px_var(--lofi-shadow)]">
-                        <a className="text-sm">{props.index}</a>
+            <RevealOnView
+                direction={props.varient === "fliped" ? "right" : "left"}
+                delay={100}
+                className={`order-2 w-full min-w-0 lg:order-none lg:row-start-1 ${isFlipped ? "lg:col-start-2" : "lg:col-start-1"}`}
+            >
+                <div className="mx-auto lg:mx-0 flex flex-col justify-end items-center lg:items-start w-full gap-6 lg:gap-8 max-w-[350px]">
+                    <div className="flex justify-start items-end gap-4">
+                        <RevealOnView direction="stamp" delay={150} className="flex shrink-0">
+                            <div className="flex justify-center items-center rounded-full size-[36px] bg-[var(--lofi-accent)] text-[var(--lofi-text)] shadow-[0_2px_6px_var(--lofi-shadow)]">
+                                <span className="text-sm">{props.index}</span>
+                            </div>
+                        </RevealOnView>
+                        <div className="flex justify-center items-end text-[40px] md:text-[64px] font-semibold leading-[36px] md:leading-[50px] text-[var(--lofi-text)] font-[family-name:var(--font-dm-serif)]">{props.title}</div>
                     </div>
-                    <div className="flex justify-center items-end text-[40px] md:text-[64px] font-semibold leading-[36px] md:leading-[50px] text-[var(--lofi-text)] font-[family-name:var(--font-dm-serif)]">{props.title}</div>
-                </div>
 
-                <p className="text-[16px] w-full text-[var(--lofi-text-muted)] text-center md:text-left">
-                    {props.description}
-                </p>
-            </div>
+                    <p className="text-[16px] w-full text-[var(--lofi-text-muted)] text-center lg:text-left">
+                        {props.description}
+                    </p>
+                </div>
+            </RevealOnView>
 
         </div>
     )
@@ -73,9 +91,9 @@ const ImageCard = () => (
 )
 
 const ChatCard01 = () => (
-    <div className="flex justify-center items-center relative w-full">
+    <div className="flex justify-center lg:justify-start items-center relative w-full">
 
-        <IpadMockupCard variant="spaceGray" visibleRatio={3 / 3} showCamera={true} className="h-[500px]">
+        <IpadMockupCard variant="spaceGray" visibleRatio={3 / 3} showCamera={true} className="h-auto w-[250px] max-w-full md:w-[300px]">
             <div className="w-full h-full ">
                 <Image src="/ChatUI.png" alt="Chat UI" fill className="object-fit" />
             </div>
@@ -85,7 +103,7 @@ const ChatCard01 = () => (
 
 
 const ChatCard02 = () => (
-    <div className="relative w-full">
+    <div className="relative flex w-full justify-center lg:justify-end">
         <LaptopMockupCard variant="gray" className="">
             <div className="w-full h-full  bg-orange-600">
                 <Image src="/Walk02.png" alt="Chat UI" fill className="object-cover" />
@@ -96,12 +114,27 @@ const ChatCard02 = () => (
 
 
 const ChatCard03 = () => (
-    <div className="flex justify-center items-center relative ">
-        {/* <IpadMockupCard variant="spaceGray" showCamera={true} className="absolute top-0 left-0 w-[220px] md:w-[240px] rotate-90">
-        
-    </IpadMockupCard> */}
-        {/* <PhoneMockupCard className="absolute top-0 left-0  w-[140px] h-[240px]" /> */}
-        <div className="relative ">
+    <div className="flex justify-center lg:justify-start items-center relative w-full">
+        <div className="w-full lg:hidden">
+            <ScaledScene>
+                <LaptopMockupCard size="desktop" variant="gray" className="absolute bottom-5 left-[148px]">
+                    <div className="relative size-full bg-orange-600">
+                        <Image src="/Walk02.png" alt="Letter preview on a laptop" fill sizes="432px" className="object-cover" />
+                    </div>
+                </LaptopMockupCard>
+                <IpadMockupCard
+                    variant="spaceGray"
+                    showCamera
+                    className="absolute w-[220px] md:w-[220px] rotate-90"
+                    style={{
+                        left: "calc(20px + 220px * (247.6 - 178.5) / (2 * 178.5))",
+                        bottom: "calc(20px - 220px * (247.6 - 178.5) / (2 * 178.5))",
+                    }}
+                />
+                <PhoneMockupCard className="absolute bottom-5 left-[500px] z-10 h-[240px] w-[120px]" />
+            </ScaledScene>
+        </div>
+        <div className="relative hidden lg:block lg:ml-2 lg:translate-x-[54px] lg:scale-[0.91]">
 
             <LaptopMockupCard variant="gray" className="relative z-0 ">
                 <div className="w-full h-full  bg-orange-600">
@@ -109,12 +142,18 @@ const ChatCard03 = () => (
                 </div>
             </LaptopMockupCard>
 
-            <PhoneMockupCard className="absolute -bottom-0 left-[80%]  w-[95px] md:w-[120px] h-[180px] md:h-[240px] z-100" />
+            <PhoneMockupCard className="absolute bottom-0 right-0 lg:right-auto lg:left-[80%] w-[95px] md:w-[120px] h-[180px] md:h-[240px] z-100" />
 
-            <IpadMockupCard variant="spaceGray" showCamera={true} className="absolute bottom-[-20%] md:top-0 left-[-30%] w-[180px] md:w-[240px] rotate-90" />
+            {/* Rotation shortens the visible height from H to W. Offset by -(H - W) / 2
+                so the rotated frame's bottom meets the phone's bottom: 0 baseline. */}
+            <IpadMockupCard
+                variant="spaceGray"
+                showCamera={true}
+                className="absolute [--ipad-width:180px] md:[--ipad-width:240px] lg:[--ipad-width:220px] left-[calc(var(--ipad-width)*(247.6-178.5)/(2*178.5))] lg:left-[calc(-30%+44px)] w-[var(--ipad-width)] md:w-[var(--ipad-width)] rotate-90"
+                style={{ bottom: "calc(var(--ipad-width) * (178.5 - 247.6) / (2 * 178.5))" }}
+            />
 
         </div>
         {/* */}
     </div >
 )
-
