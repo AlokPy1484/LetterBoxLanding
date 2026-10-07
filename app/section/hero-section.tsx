@@ -29,12 +29,12 @@ export default function HeroSection() {
                     </span>
                 </RevealOnView>
                 <RevealOnView direction="up" delay={120} className="w-full">
-                    <div className="w-full text-[32px] leading-[38px] md:text-[60px] md:leading-[60px] tracking-[-4%] font-semibold text-center text-[var(--lofi-text)] font-[family-name:var(--font-dm-serif)]">
-                        gift something memorable to someone who matters.
-                    </div>
+                    <h1 className="w-full text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.08] tracking-[-0.025em] font-normal text-center text-[var(--lofi-text)] font-[family-name:var(--font-dm-serif)]">
+                        Something memorable. For someone who matters.
+                    </h1>
                 </RevealOnView>
                 <RevealOnView direction="up" delay={220}>
-                    <div className="text-[16px] md:text-[24px] tracking-[-8%] text-[var(--lofi-text-muted)] text-center">digital letters that reflects your love  and care.</div>
+                    <div className="text-[16px] md:text-[24px] leading-[1.6] text-[var(--lofi-text-muted)] text-center">Turn what you feel into a letter they’ll treasure.</div>
                 </RevealOnView>
                 <RevealOnView direction="up" delay={320}>
                     <div className="flex justify-center items-center gap-4 md:gap-16 text-[16px]">

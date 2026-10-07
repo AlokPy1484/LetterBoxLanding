@@ -1,5 +1,6 @@
 import Image from "next/image";
 import RevealOnView from "../components/reveal-on-view";
+import EnvelopeCta from "../components/envelope-cta";
 
 
 
@@ -8,7 +9,7 @@ export default function FooterSection() {
 
 
     return (
-        <section className="flex justify-center items-start  relative h-[60vh] md:h-[80vh] w-full  bg-[var(--lofi-bg-footer)]">
+        <section className="flex justify-center items-start  relative min-h-[60vh] md:min-h-[80vh] pb-[max(150px,20vw)] w-full  bg-[var(--lofi-bg-footer)]">
 
 
             <div className="flex flex-col justify-start items-center gap-6 z-100 mt-[10vh] md:mt-[14vh] px-6">
@@ -19,7 +20,7 @@ export default function FooterSection() {
                         <span>
                             <Image src="/PlaceholderLogo.png" alt="Placeholder" width={50} height={50} className="rounded-full" />
                         </span>
-                        <h1 className="text-2xl md:text-5xl font-semibold text-[var(--lofi-text)] tracking-[-6%] font-[family-name:var(--font-dm-serif)]">LetterBox</h1>
+                        <h2 className="text-2xl md:text-5xl font-normal text-[var(--lofi-text)] tracking-[-0.03em] font-[family-name:var(--font-dm-serif)]">LetterBox</h2>
                     </div>
                 </RevealOnView>
 
@@ -40,9 +41,7 @@ export default function FooterSection() {
 
                 {/* CTA */}
                 <RevealOnView direction="up" delay={240}>
-                    <button className="px-4 py-2 bg-[var(--lofi-accent-soft)] text-[var(--lofi-text)] text-sm rounded-[20px] shadow-[0_2px_8px_var(--lofi-shadow)] hover:shadow-[0_4px_16px_var(--lofi-shadow)] transition-shadow duration-300">
-                        Start writing a letter
-                    </button>
+                    <EnvelopeCta />
                 </RevealOnView>
 
 

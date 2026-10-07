@@ -1,0 +1,17 @@
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 8px 20px; border-radius: 24px; color: var(--lofi-text); background: var(--lofi-accent-soft); box-shadow: 0 2px 8px var(--lofi-shadow); font-size: 14px; cursor: pointer; transition: box-shadow 220ms, transform 180ms; }
+.icon { display: block; width: 32px; height: 36px; padding-top: 4px; flex-shrink: 0; }
+.flap { transform-origin: 16px 12px; transition: transform 300ms ease; }
+.letter { transition: transform 300ms ease; }
+.button:focus-visible { outline: 2px solid var(--lofi-text-muted); outline-offset: 5px; }
+.button:focus-visible .flap { transform: scaleY(-1); }
+.button:focus-visible .letter { transform: translateY(-4px); }
+@media (hover: hover) {
+  .button:hover { box-shadow: 0 5px 16px var(--lofi-shadow); }
+  .button:hover .flap { transform: scaleY(-1); }
+  .button:hover .letter { transform: translateY(-4px); }
+}
+.button:active { transform: scale(.98); }
+@media (prefers-reduced-motion: reduce) {
+  .button, .flap, .letter { transition: none; }
+  .button:active, .button:hover .flap, .button:focus-visible .flap, .button:hover .letter, .button:focus-visible .letter { transform: none; }
+}

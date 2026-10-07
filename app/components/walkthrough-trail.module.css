@@ -1,0 +1,14 @@
+.layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; --draw: 1; --branch: 1; --grow: 1; }
+.ink { stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--draw)); }
+.branch { stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--branch)); }
+.stem { stroke-dasharray: 1; stroke-dashoffset: calc(1 - clamp(0, var(--grow) * 3, 1)); }
+.leaf { transform-origin: 80px 127px; opacity: clamp(0, var(--grow) * 3, 1); transform: rotate(calc(-35deg * (1 - var(--grow)))) scale(clamp(.05, var(--grow) * 2, 1)); }
+.outer, .inner, .bud { transform-origin: 80px 62px; }
+.outer { --open: clamp(0, (var(--grow) - .2 - var(--flower-delay) * .3 - var(--petal-index) * .025) * 1.65, 1); transform: rotate(calc(-18deg * (1 - var(--open)))) scale(calc(.12 + .88 * var(--open))); opacity: clamp(0, var(--grow) * 4, 1); }
+.inner { --open: clamp(0, (var(--grow) - .4 - var(--flower-delay) * .3 - var(--petal-index) * .02) * 2.4, 1); transform: rotate(calc(16deg * (1 - var(--open)))) scale(calc(.16 + .84 * var(--open))); opacity: clamp(0, var(--grow) * 3, 1); }
+.bud { transform: scale(.28, .55); opacity: clamp(0, var(--grow) * 3, 1); }
+.sepal { transform-origin: 80px 65px; transform: scale(calc(.4 + .6 * var(--grow))); opacity: clamp(0, var(--grow) * 4, 1); }
+.center { opacity: clamp(0, (var(--grow) - .8) * 5, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .layer g[data-ink-segment] { --draw: 1 !important; --branch: 1 !important; --grow: 1 !important; }
+}

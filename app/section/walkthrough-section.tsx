@@ -5,19 +5,22 @@ import { LaptopMockupCard } from "../components/laptop-mockup-card";
 import { PhoneMockupCard } from "../components/phone-mockup-card";
 import RevealOnView from "../components/reveal-on-view";
 import ScaledScene from "../components/scaled-scene";
+import WalkthroughTrail from "../components/walkthrough-trail";
 
 
 
 export default function WalkthroughSection() {
     return (
-        <div id="about" className="scroll-mt-6 flex flex-col justify-center items-center w-full h-full py-12 md:py-20 bg-[var(--lofi-bg-deep)]">
+        <div id="about" className="relative isolate scroll-mt-6 flex flex-col justify-center items-center w-full h-full py-12 md:py-20 bg-[var(--lofi-bg-deep)]">
 
+            <WalkthroughTrail />
 
-            <WalkthroughCard index={"01"} title={"Chat"} description={"Chat with AI assistant to get quick replies to your questions, or let it handle small tasks for you."} visual={<ChatCard01 />} visualWidth={300} />
-            <WalkthroughCard varient={"fliped"} index={"02"} title={"Preview"} description={"Chat with AI assistant to get quick replies to your questions, or let it handle small tasks for you."} visual={<ChatCard02 />} />
-            <WalkthroughCard index={"03"} title={"Share"} description={"Chat with AI assistant to get quick replies to your questions, or let it handle small tasks for you."} visual={<ChatCard03 />} />
-
-
+            <WalkthroughCard index={"01"} title={"Chat"} description={"Start with a memory, a thank-you, or something you’ve been meaning to say."} visual={<ChatCard01 />} visualWidth={300} />
+            <div data-ornament-space className="h-[180px] sm:h-[208px] min-[1440px]:h-[240px] w-full" aria-hidden="true" />
+            <WalkthroughCard varient={"fliped"} index={"02"} title={"Preview"} description={"See your words take shape in a letter made for someone special."} visual={<ChatCard02 />} />
+            <div data-ornament-space className="h-[180px] sm:h-[208px] min-[1440px]:h-[240px] w-full" aria-hidden="true" />
+            <WalkthroughCard index={"03"} title={"Share"} description={"Send a little piece of your heart, ready to open on any screen."} visual={<ChatCard03 />} />
+            <div data-ornament-space className="h-[180px] sm:h-[208px] min-[1440px]:h-[240px] w-full" aria-hidden="true" />
 
 
         </div>
@@ -44,7 +47,7 @@ export function WalkthroughCard(props: WalkthroughCardProps) {
     } as CSSProperties;
 
     return (
-        <div style={columnStyle} className={`grid grid-cols-1 items-center lg:justify-center max-w-4xl w-full px-6 lg:px-0 py-10 lg:py-0 lg:h-screen gap-y-6 lg:gap-x-12 ${desktopColumns}`}>
+        <div data-walkthrough-card style={columnStyle} className={`relative z-10 grid grid-cols-1 items-center lg:justify-center max-w-4xl w-full px-6 lg:px-0 py-10 lg:py-0 lg:h-screen gap-y-6 lg:gap-x-12 ${desktopColumns}`}>
 
             {/* Image — always first in DOM, shows on top on mobile */}
             <RevealOnView
@@ -67,10 +70,10 @@ export function WalkthroughCard(props: WalkthroughCardProps) {
                                 <span className="text-sm">{props.index}</span>
                             </div>
                         </RevealOnView>
-                        <div className="flex justify-center items-end text-[40px] md:text-[64px] font-semibold leading-[36px] md:leading-[50px] text-[var(--lofi-text)] font-[family-name:var(--font-dm-serif)]">{props.title}</div>
+                        <h2 className="flex justify-center items-end text-[clamp(2.5rem,5vw,4rem)] font-normal leading-[1.1] text-[var(--lofi-text)] font-[family-name:var(--font-dm-serif)]">{props.title}</h2>
                     </div>
 
-                    <p className="text-[16px] w-full text-[var(--lofi-text-muted)] text-center lg:text-left">
+                    <p className="text-[16px] leading-[1.6] w-full text-[var(--lofi-text-muted)] text-center lg:text-left">
                         {props.description}
                     </p>
                 </div>
