@@ -1,8 +1,9 @@
 import styles from "./envelope-cta.module.css";
+import LaunchCountdownButton from "./launch-countdown-button";
 
 export default function EnvelopeCta() {
     return (
-        <button type="button" className={styles.button}>
+        <LaunchCountdownButton label="Start writing a letter" className={styles.button} icon={
             <span className={styles.icon} aria-hidden="true">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M3 12L16 4L29 12V27H3Z" fill="var(--lofi-accent)" stroke="currentColor" />
@@ -11,7 +12,6 @@ export default function EnvelopeCta() {
                     <path className={styles.flap} d="M3 12L16 21L29 12Z" fill="var(--lofi-accent-soft)" stroke="currentColor" strokeLinejoin="round" />
                 </svg>
             </span>
-            <span>Start writing a letter</span>
-        </button>
+        } />
     );
 }

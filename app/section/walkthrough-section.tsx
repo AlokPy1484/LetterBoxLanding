@@ -19,7 +19,7 @@ export default function WalkthroughSection() {
             <div data-ornament-space className="h-[180px] sm:h-[208px] min-[1440px]:h-[240px] w-full" aria-hidden="true" />
             <WalkthroughCard varient={"fliped"} index={"02"} title={"Preview"} description={"See your words take shape in a letter made for someone special."} visual={<ChatCard02 />} />
             <div data-ornament-space className="h-[180px] sm:h-[208px] min-[1440px]:h-[240px] w-full" aria-hidden="true" />
-            <WalkthroughCard index={"03"} title={"Share"} description={"Send a little piece of your heart, ready to open on any screen."} visual={<ChatCard03 />} />
+            <WalkthroughCard index={"03"} title={"Share"} description={"Send a little piece of your heart. Opens on any device—no downloads needed."} visual={<ChatCard03 />} />
             <div data-ornament-space className="h-[180px] sm:h-[208px] min-[1440px]:h-[240px] w-full" aria-hidden="true" />
 
 
@@ -116,6 +116,22 @@ const ChatCard02 = () => (
 )
 
 
+// The frame rotates to landscape; swap the screen dimensions before undoing
+// that rotation so the image covers the entire screen rather than a portrait box.
+const LandscapeLetterScreen = () => (
+    <div className="relative size-full [container-type:size]">
+        <div className="absolute left-1/2 top-1/2 h-[100cqw] w-[100cqh] -translate-x-1/2 -translate-y-1/2 -rotate-90">
+            <Image
+                src="/Walk02.png"
+                alt="Letter preview on a tablet"
+                fill
+                sizes="(min-width: 1024px) 290px, 220px"
+                className="object-cover"
+            />
+        </div>
+    </div>
+);
+
 const ChatCard03 = () => (
     <div className="flex justify-center lg:justify-start items-center relative w-full">
         <div className="w-full lg:hidden">
@@ -133,7 +149,9 @@ const ChatCard03 = () => (
                         left: "calc(20px + 220px * (247.6 - 178.5) / (2 * 178.5))",
                         bottom: "calc(20px - 220px * (247.6 - 178.5) / (2 * 178.5))",
                     }}
-                />
+                >
+                    <LandscapeLetterScreen />
+                </IpadMockupCard>
                 <PhoneMockupCard className="absolute bottom-5 left-[500px] z-10 h-[240px] w-[120px]" />
             </ScaledScene>
         </div>
@@ -145,7 +163,11 @@ const ChatCard03 = () => (
                 </div>
             </LaptopMockupCard>
 
-            <PhoneMockupCard className="absolute bottom-0 right-0 lg:right-auto lg:left-[80%] w-[95px] md:w-[120px] h-[180px] md:h-[240px] z-100" />
+            <PhoneMockupCard className="absolute bottom-0 right-0 lg:right-auto lg:left-[80%] w-[95px] md:w-[120px] h-[180px] md:h-[240px] z-100" >
+                <div className="w-full h-full  bg-orange-600">
+                    <Image src="/PhoneScreen.png" alt="Chat UI" fill className="object-cover" />
+                </div>
+            </PhoneMockupCard>
 
             {/* Rotation shortens the visible height from H to W. Offset by -(H - W) / 2
                 so the rotated frame's bottom meets the phone's bottom: 0 baseline. */}
@@ -154,7 +176,9 @@ const ChatCard03 = () => (
                 showCamera={true}
                 className="absolute [--ipad-width:180px] md:[--ipad-width:240px] lg:[--ipad-width:220px] left-[calc(var(--ipad-width)*(247.6-178.5)/(2*178.5))] lg:left-[calc(-30%+44px)] w-[var(--ipad-width)] md:w-[var(--ipad-width)] rotate-90"
                 style={{ bottom: "calc(var(--ipad-width) * (178.5 - 247.6) / (2 * 178.5))" }}
-            />
+            >
+                <LandscapeLetterScreen />
+            </IpadMockupCard>
 
         </div>
         {/* */}
