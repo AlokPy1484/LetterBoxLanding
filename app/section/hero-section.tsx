@@ -3,7 +3,7 @@ import Navbar from "../components/navbar";
 import RevealOnView from "../components/reveal-on-view";
 import HeroScrollCue from "../components/hero-scroll-cue";
 import DemoVideoPlayer from "../components/demo-video-player";
-import LaunchCountdownButton from "../components/launch-countdown-button";
+import WriteLetterLink from "../components/write-letter-link";
 
 
 
@@ -40,7 +40,7 @@ export default function HeroSection() {
                 </RevealOnView>
                 <RevealOnView direction="up" delay={320}>
                     <div className="flex justify-center items-center gap-4 md:gap-16 text-[16px]">
-                        <LaunchCountdownButton
+                        <WriteLetterLink
                             label="Get started"
                             className="flex min-h-12 min-w-[140px] items-center justify-center px-5 py-2.5 bg-[var(--lofi-accent-soft)] text-[var(--lofi-text)] rounded-[20px] shadow-[0_2px_8px_var(--lofi-shadow)] hover:shadow-[0_4px_16px_var(--lofi-shadow)] transition-shadow duration-300 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--lofi-accent)]"
                         />
